@@ -1,1 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Watch — Detx Gaming</title>
+  <link rel="stylesheet" href="./assets/style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <div class="brand">
+        <div class="logoDot"></div>
+        <div data-brand>Detx Gaming</div>
+      </div>
+      <nav class="navLinks">
+        <a data-nav href="index.html">Home</a>
+        <a data-nav href="watch.html">Watch</a>
+        <a data-nav href="courses.html">Courses</a>
+        <a data-nav href="shop.html">Shop</a>
+        <a data-nav href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section">
+      <div class="sectionHead">
+        <h2>Watch</h2>
+        <p class="muted">Playlists from YouTube (fast + free)</p>
+      </div>
+
+      <div data-watch>
+        <section class="track">
+          <div class="trackHead">
+            <h2>Featured</h2><p class="muted">Best of Detx</p>
+          </div>
+          <div id="ytFeatured"></div>
+        </section>
+
+        <section class="track">
+          <div class="trackHead">
+            <h2>Highlights</h2><p class="muted">Clutches, moments, wins</p>
+          </div>
+          <div id="ytHighlights"></div>
+        </section>
+
+        <section class="track">
+          <div class="trackHead">
+            <h2>Shorts</h2><p class="muted">Fast content</p>
+          </div>
+          <div id="ytShorts"></div>
+        </section>
+
+        <section class="track">
+          <div class="trackHead">
+            <h2>Live</h2><p class="muted">Past streams</p>
+          </div>
+          <div id="ytLive"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footerGrid">
+      <div>© <span id="year"></span> <span data-brand>Detx Gaming</span></div>
+      <div class="chips" data-socials></div>
+    </div>
+  </footer>
+
+  <script src="./assets/supabase.js"></script>
+  <script src="./assets/data.js"></script>
+  <script src="./assets/app.js"></script>
+</body>
+</html>
 
