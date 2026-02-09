@@ -8,21 +8,21 @@ const DETX = {
     phone: "+8801XXXXXXXXX",
   },
   socials: [
-    { label: "YouTube", href: "https://youtube.com/@YOURHANDLE" },
-    { label: "Facebook", href: "https://facebook.com/YOURPAGE" },
-    { label: "Instagram", href: "https://instagram.com/YOURHANDLE" },
-    { label: "TikTok", href: "https://tiktok.com/@YOURHANDLE" },
-    { label: "Threads", href: "https://threads.net/@YOURHANDLE" },
-    { label: "Reddit", href: "https://reddit.com/user/YOURUSERNAME" },
-    { label: "Discord", href: "https://discord.gg/YOURINVITE" },
+    { label: "YouTube", href: "https://youtube.com/@detxgamingyt" },
+    { label: "Facebook", href: "https://facebook.com/detxgamingyt" },
+    { label: "Instagram", href: "https://instagram.com/detxgaming" },
+    { label: "TikTok", href: "https://tiktok.com/@detxgamingyt" },
+    { label: "Threads", href: "https://threads.net/@detxgaming" },
+    { label: "Reddit", href: "https://reddit.com/user/detxgaming/" },
+    { label: "Discord", href: "https://discord.gg/6PnkfTjfJu" },
   ],
 
   // Replace with your YouTube playlist IDs (recommended)
   youtube: {
-    featuredPlaylistId: "PASTE_PLAYLIST_ID",
-    highlightsPlaylistId: "PASTE_PLAYLIST_ID",
-    shortsPlaylistId: "PASTE_PLAYLIST_ID",
-    livePlaylistId: "PASTE_PLAYLIST_ID",
+    featuredPlaylistId: "PL2gip3RqVaHdYQ2aelFRwaExsKCE6RtY_",
+    highlightsPlaylistId: "PL2gip3RqVaHc7p8dILPwS1Ke2nW5NIXc4",
+    shortsPlaylistId: "PL2gip3RqVaHdB5EBHCt1SPG_4ifssHVIT",
+    livePlaylistId: "PL2gip3RqVaHfKpGTDwUsNpjsT5wRRcf_6",
   },
 
   // Courses: grouped into tracks
