@@ -4,8 +4,8 @@ const DETX = {
   brand: {
     name: "Detx Gaming",
     tagline: "Watch. Learn. Level Up.",
-    email: "your@email.com",
-    phone: "+8801XXXXXXXXX",
+    email: "detxbusiness@email.com",
+    phone: "+8801771253085",
   },
   socials: [
     { label: "YouTube", href: "https://youtube.com/@detxgamingyt" },
