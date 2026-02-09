@@ -1,1 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Detx Gaming — Watch. Learn. Level Up.</title>
+  <link rel="stylesheet" href="./assets/style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container nav">
+      <div class="brand">
+        <div class="logoDot"></div>
+        <div data-brand>Detx Gaming</div>
+      </div>
+      <nav class="navLinks">
+        <a data-nav href="index.html">Home</a>
+        <a data-nav href="watch.html">Watch</a>
+        <a data-nav href="courses.html">Courses</a>
+        <a data-nav href="shop.html">Shop</a>
+        <a data-nav href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="hero">
+      <div class="heroGrid">
+        <div class="panel">
+          <h1 class="hTitle"><span data-brand>Detx Gaming</span></h1>
+          <p class="hSub" data-tagline>Watch. Learn. Level Up.</p>
+          <p class="muted">
+            A creator platform where you can watch gaming videos, learn social media growth, and build a real career path—without confusion.
+          </p>
+          <div class="ctaRow">
+            <a class="btn primary" href="watch.html">Watch Videos</a>
+            <a class="btn" href="courses.html">Explore Courses</a>
+            <a class="btn ghost" href="contact.html">Contact</a>
+          </div>
+
+          <div style="height:14px"></div>
+          <div class="chips" data-socials></div>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin:0 0 8px">Fast start</h3>
+          <p class="muted" style="margin:0 0 12px">
+            Start with the flagship blueprint or the YouTube Kickstart. Clean outcomes. No motivational fluff.
+          </p>
+          <div class="card" style="background: rgba(255,255,255,0.04)">
+            <div style="font-weight:900">Featured Courses</div>
+            <div class="muted" style="margin-top:8px">Discount prices are limited-time style.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="sectionHead">
+        <h2>Featured Courses</h2>
+        <a class="btn ghost" href="courses.html">See all</a>
+      </div>
+      <div class="grid" data-featured-courses></div>
+    </section>
+
+    <section class="section">
+      <div class="sectionHead">
+        <h2>Featured Playlist</h2>
+        <p class="muted">Your YouTube playlist embed</p>
+      </div>
+      <div id="ytHome"></div>
+      <script>
+        // Basic embed for home (optional)
+        // This will be overwritten by app.js if you want; keeping simple here
+      </script>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footerGrid">
+      <div>© <span id="year"></span> <span data-brand>Detx Gaming</span></div>
+      <div class="muted">Built on GitHub • Vercel • Supabase</div>
+    </div>
+  </footer>
+
+  <script src="./assets/supabase.js"></script>
+  <script src="./assets/data.js"></script>
+  <script src="./assets/app.js"></script>
+</body>
+</html>
 
