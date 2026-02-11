@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Success — Detx Gaming</title>
+  <link rel="stylesheet" href="./assets/style.css"/>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container nav">
+      <div class="brand">
+        <div class="logoDot"></div>
+        <div>Detx Gaming</div>
+      </div>
+      <nav class="navLinks">
+        <a href="index.html">Home</a>
+        <a href="watch.html">Watch</a>
+        <a href="courses.html">Courses</a>
+        <a href="shop.html">Shop</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section">
+      <div class="panel">
+        <h1 class="hTitle" style="font-size:32px;margin:0 0 10px;">✅ Submitted!</h1>
+        <p class="muted" style="margin:0 0 14px;">
+          Your enrollment request has been received. Next step: we’ll confirm your payment and message you with access instructions.
+        </p>
+
+        <div class="card" style="background: rgba(255,255,255,0.04);">
+          <div style="font-weight:900;margin-bottom:8px;">What happens now?</div>
+          <div class="muted">1) Payment verification</div>
+          <div class="muted">2) You receive course access details</div>
+          <div class="muted">3) You join the community for updates & support</div>
+        </div>
+
+        <div class="ctaRow" style="margin-top:14px;">
+          <a class="btn primary" href="https://discord.gg/Mm74e4WHhU" target="_blank" rel="noopener">Join Discord Community</a>
+          <a class="btn" href="watch.html">Watch Videos</a>
+          <a class="btn ghost" href="courses.html">Explore More Courses</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footerGrid">
+      <div>© <span id="year"></span> Detx Gaming</div>
+      <div class="muted">Keep building. Keep posting.</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
