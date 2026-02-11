@@ -7,11 +7,6 @@
   <link rel="stylesheet" href="./assets/style.css"/>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<div class="stickyBar">
-  <a class="stickyBtn" href="courses.html">Courses</a>
-  <a class="stickyBtn primary" href="https://discord.gg/Mm74e4WHhU" target="_blank" rel="noopener">Join Discord</a>
-  <a class="stickyBtn" href="http://discordapp.com/users/794883241680044054" target="_blank" rel="noopener">DM Discord</a>
-</div>
 
 <body>
   <header class="topbar">
@@ -33,38 +28,14 @@
   <main class="container">
     <section class="section">
       <div class="sectionHead">
-        <h2>Watch</h2>
-        <p class="muted">Playlists from YouTube (fast + free)</p>
+        <div>
+          <h2>Watch</h2>
+          <p class="muted">YouTube-style playlist shelves</p>
+        </div>
       </div>
 
-      <div data-watch>
-        <section class="track">
-          <div class="trackHead">
-            <h2>Featured</h2><p class="muted">Best of Detx</p>
-          </div>
-          <div id="ytFeatured"></div>
-        </section>
-
-        <section class="track">
-          <div class="trackHead">
-            <h2>Highlights</h2><p class="muted">Clutches, moments, wins</p>
-          </div>
-          <div id="ytHighlights"></div>
-        </section>
-
-        <section class="track">
-          <div class="trackHead">
-            <h2>Shorts</h2><p class="muted">Fast content</p>
-          </div>
-          <div id="ytShorts"></div>
-        </section>
-
-        <section class="track">
-          <div class="trackHead">
-            <h2>Live</h2><p class="muted">Past streams</p>
-          </div>
-          <div id="ytLive"></div>
-        </section>
+      <div class="shelves" data-watch-shelves>
+        <!-- JS will render shelves here -->
       </div>
     </section>
   </main>
@@ -76,9 +47,15 @@
     </div>
   </footer>
 
+  <!-- Sticky mobile bar -->
+  <div class="stickyBar">
+    <a class="stickyBtn" href="courses.html">Courses</a>
+    <a class="stickyBtn primary" href="https://discord.gg/Mm74e4WHhU" target="_blank" rel="noopener">Join Discord</a>
+    <a class="stickyBtn" href="https://discordapp.com/users/794883241680044054" target="_blank" rel="noopener">DM Discord</a>
+  </div>
+
   <script src="./assets/supabase.js"></script>
   <script src="./assets/data.js"></script>
   <script src="./assets/app.js"></script>
 </body>
 </html>
-
