@@ -7,12 +7,6 @@
   <link rel="stylesheet" href="./assets/style.css"/>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-  <div class="stickyBar">
-  <a class="stickyBtn" href="courses.html">Courses</a>
-  <a class="stickyBtn primary" href="https://discord.gg/Mm74e4WHhU" target="_blank" rel="noopener">Join Discord</a>
-  <a class="stickyBtn" href="http://discordapp.com/users/794883241680044054" target="_blank" rel="noopener">DM Discord</a>
-</div>
-
 <body>
   <header class="topbar">
     <div class="container nav">
@@ -31,15 +25,12 @@
   </header>
 
   <main class="container">
+    <div data-urgency></div>
+
     <section class="section">
       <div class="sectionHead">
-        <div>
-          <h2>Courses</h2>
-          <p class="muted">Choose a track. Each course has a discount price + enrollment form.</p>
-        </div>
-        <div style="min-width:280px">
-          <input id="courseSearch" class="input" placeholder="Search courses (SEO, AI, Streamlabs, Instagram...)"/>
-        </div>
+        <h2>All Courses</h2>
+        <p class="muted">Cheap, practical, fast results</p>
       </div>
 
       <div data-courses></div>
@@ -53,9 +44,14 @@
     </div>
   </footer>
 
+  <div class="stickyBar">
+    <a class="stickyBtn" href="courses.html">Courses</a>
+    <a class="stickyBtn primary" href="https://discord.gg/Mm74e4WHhU" target="_blank" rel="noopener">Join Discord</a>
+    <a class="stickyBtn" href="https://discordapp.com/users/794883241680044054" target="_blank" rel="noopener">DM</a>
+  </div>
+
   <script src="./assets/supabase.js"></script>
   <script src="./assets/data.js"></script>
   <script src="./assets/app.js"></script>
 </body>
 </html>
-
