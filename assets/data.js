@@ -1,31 +1,33 @@
 // assets/data.js
-
-const DETX = {
+window.DETX = {
   brand: {
     name: "Detx Gaming",
-    tagline: "Watch. Learn. Level Up.",
-    email: "detxbusiness@email.com",
-    phone: "+8801771253085",
+    tagline: "Gaming creator + social media growth",
   },
-socials: [
-  { label: "YouTube", href: "https://www.youtube.com/@detxgamingyt" },
 
-  // Community join link (best for conversion)
-  { label: "Join Discord", href: "https://discord.gg/Mm74e4WHhU" },
+  // Global discount campaign (urgency timer)
+  campaign: {
+    // Set your real end date/time (BD time works fine)
+    // Example: "2026-03-01T23:59:59+06:00"
+    endsAt: "2026-03-01T23:59:59+06:00",
+    label: "🔥 50% OFF Creator Sale",
+    note: "Sale ends soon. Price goes back up after timer ends.",
+    discountPercent: 50
+  },
 
-  // Direct DM link (good for 1:1)
-  { label: "Discord DM", href: "http://discordapp.com/users/794883241680044054" },
+  socials: [
+    { label: "YouTube", href: "https://www.youtube.com/@detxgamingyt" },
+    { label: "Join Discord", href: "https://discord.gg/Mm74e4WHhU" },
+    { label: "Discord DM", href: "https://discordapp.com/users/794883241680044054" },
 
-  { label: "Facebook", href: "https://facebook.com/YOURPAGE" },
-  { label: "Instagram", href: "https://instagram.com/YOURHANDLE" },
-  { label: "TikTok", href: "https://tiktok.com/@YOURHANDLE" },
-  { label: "Threads", href: "https://threads.net/@YOURHANDLE" },
-  { label: "Reddit", href: "https://reddit.com/user/YOURUSERNAME" },
-],
+    // Add later
+    { label: "Facebook", href: "https://facebook.com/YOURPAGE" },
+    { label: "Instagram", href: "https://instagram.com/YOURHANDLE" },
+    { label: "TikTok", href: "https://tiktok.com/@YOURHANDLE" },
+    { label: "Threads", href: "https://threads.net/@YOURHANDLE" },
+    { label: "Reddit", href: "https://reddit.com/user/YOURUSERNAME" },
+  ],
 
-
-
-  // Replace with your YouTube playlist IDs (recommended)
   youtube: {
     featuredPlaylistId: "PL2gip3RqVaHdYQ2aelFRwaExsKCE6RtY_",
     highlightsPlaylistId: "PL2gip3RqVaHc7p8dILPwS1Ke2nW5NIXc4",
@@ -33,242 +35,183 @@ socials: [
     livePlaylistId: "PL2gip3RqVaHfKpGTDwUsNpjsT5wRRcf_6",
   },
 
-  // Courses: grouped into tracks
+
+  // Many small cheap courses
   courses: [
-    // Track 1 — Creator Launch
     {
-      id: "creator-kickstart",
-      track: "Creator Launch",
-      title: "Creator Kickstart: Start Your YouTube Journey (Zero to Upload)",
-      level: "Beginner",
-      duration: "3.5 hours",
-      outcome: "You will publish confidently with a repeatable upload system.",
-      includes: ["Upload checklist", "First 10 video plan", "Basic content strategy"],
-      originalPrice: 2990,
-      discountPrice: 1490,
-      badge: "Most Popular",
-      description:
-        "A practical start-to-finish course for launching your YouTube journey: niche choice, content planning, recording basics, upload workflow, and the first 10-video roadmap.",
-    },
-    {
-      id: "social-fame-blueprint",
-      track: "Creator Launch",
-      title: "Social Media Fame Blueprint (All Platforms)",
-      level: "All Levels",
-      duration: "8+ hours",
-      outcome: "You will know exactly what to post, where, and why it grows.",
-      includes: ["Platform strategy", "Content engine", "Growth system"],
-      originalPrice: 8990,
-      discountPrice: 3990,
-      badge: "Flagship",
-      description:
-        "Your main course. Covers cross-platform fame: content strategy, consistency system, audience psychology, hooks, retention, and growth loops across YouTube, FB, IG, TikTok, Threads & Reddit.",
-    },
-    {
-      id: "content-consistency",
-      track: "Creator Launch",
-      title: "Content Consistency System (Post Like a Pro Without Burning Out)",
-      level: "Beginner",
-      duration: "2 hours",
-      outcome: "You will build a sustainable posting schedule that actually works.",
-      includes: ["Weekly plan", "Batching method", "Motivation-proof system"],
-      originalPrice: 1490,
-      discountPrice: 790,
-      badge: "Best Value",
-      description:
-        "The simplest system to stay consistent: batching, templates, weekly schedule, and how to keep going when motivation dies.",
-    },
-
-    // Track 2 — Gaming Career + Streaming
-    {
-      id: "gaming-career-roadmap",
-      track: "Gaming Career",
-      title: "Gaming Career Roadmap: From Gamer to Creator",
-      level: "Beginner → Intermediate",
-      duration: "6 hours",
-      outcome: "You will build a realistic gaming creator path with milestones.",
-      includes: ["Gear priorities", "Content formats", "Career roadmap"],
-      originalPrice: 6990,
-      discountPrice: 2990,
-      badge: "Core Course",
-      description:
-        "A real-world roadmap for gaming as a career: niche, game selection, content formats, growth milestones, monetization paths, and long-term creator thinking.",
-    },
-    {
-      id: "pro-live-streaming",
-      track: "Streaming",
-      title: "Pro Live Streaming Setup (Beginner → Professional)",
-      level: "Beginner",
-      duration: "3 hours",
-      outcome: "You will go live with clean audio, scene flow, and pro structure.",
-      includes: ["Streaming setup", "Stream flow", "Live engagement"],
-      originalPrice: 4990,
-      discountPrice: 2490,
-      badge: "Pro Setup",
-      description:
-        "Everything to start professional livestreaming: layouts, audio basics, stream structure, viewer retention, and confidence on live sessions.",
-    },
-    {
-      id: "streamlabs-essentials",
-      track: "Streaming",
-      title: "Streamlabs Essentials (Go Live Without Stress)",
-      level: "Beginner",
-      duration: "2 hours",
-      outcome: "You will set up scenes, sources, alerts, and overlays properly.",
-      includes: ["Scenes", "Alerts", "Overlays"],
-      originalPrice: 2990,
-      discountPrice: 1490,
-      badge: "Essential",
-      description:
-        "A practical Streamlabs course: scene setup, sources, alerts, overlays, audio sources, and common fixes.",
-    },
-
-    // Track 3 — Growth + Algorithms
-    {
-      id: "youtube-seo-mastery",
-      track: "Growth & SEO",
-      title: "YouTube SEO Mastery (Titles, CTR, Watch Time, Ranking)",
-      level: "Intermediate",
-      duration: "4 hours",
-      outcome: "You will rank better and increase clicks + retention.",
-      includes: ["SEO system", "Title structure", "CTR & retention fixes"],
-      originalPrice: 4990,
-      discountPrice: 2490,
-      badge: "Growth",
-      description:
-        "Understand what actually ranks videos: titles, thumbnails, CTR, watch time, session time, and how to build searchable gaming content.",
-    },
-    {
-      id: "instagram-algorithm-playbook",
-      track: "Growth & SEO",
-      title: "Instagram Algorithm Playbook (Reach + Reels Growth)",
-      level: "Beginner → Intermediate",
-      duration: "3 hours",
-      outcome: "You will increase reach using repeatable reels strategy.",
-      includes: ["Reels system", "Hook patterns", "Posting strategy"],
-      originalPrice: 3990,
-      discountPrice: 1990,
-      badge: "Reach",
-      description:
-        "A clear IG playbook: reels structure, hook patterns, retention, posting rhythm, and growth loops.",
-    },
-    {
-      id: "facebook-growth-engine",
-      track: "Growth & SEO",
-      title: "Facebook Growth Engine (Reach More People + Build Community)",
-      level: "Beginner",
-      duration: "2.5 hours",
-      outcome: "You will build reach + audience using community-based growth.",
-      includes: ["Posting system", "Community strategy", "Content types"],
-      originalPrice: 2990,
-      discountPrice: 1490,
-      badge: "Community",
-      description:
-        "FB growth isn’t dead—most people just do it wrong. Learn what posts travel, how to build community, and how to convert viewers into fans.",
-    },
-
-    // Track 4 — AI Creator Tools
-    {
-      id: "ai-titles-hashtags",
-      track: "AI Creator Tools",
-      title: "AI Content Assistant: Titles, Hashtags, Descriptions with ChatGPT",
-      level: "Beginner",
-      duration: "2 hours",
-      outcome: "You will generate better titles & SEO text faster (without cringe).",
-      includes: ["Prompt templates", "Title formulas", "Hashtag strategy"],
-      originalPrice: 2990,
-      discountPrice: 1490,
-      badge: "AI",
-      description:
-        "Your exact workflow: generate titles, hashtags, descriptions, tags, and community posts using AI while keeping them natural and high-click.",
-    },
-    {
-      id: "ai-upload-system",
-      track: "AI Creator Tools",
-      title: "AI Upload System: Post Smarter, Not Harder",
+      id: "yt-journey-starter",
+      track: "YouTube Starter",
       level: "Beginner",
       duration: "1.5 hours",
-      outcome: "You will upload correctly with AI-based planning and checklists.",
-      includes: ["Upload checklist", "SEO timing", "Metadata plan"],
-      originalPrice: 1490,
-      discountPrice: 790,
-      badge: "Fast",
+      badge: "Best for new creators",
+      title: "How to Start YouTube Journey (Gaming)",
+      outcome: "Upload your first 10 videos with a repeatable system.",
       description:
-        "A clean upload system for YouTube/FB/IG/TikTok using AI for structure—without looking robotic.",
-    },
-    {
-      id: "thumbnail-1-minute",
-      track: "AI Creator Tools",
-      title: "1-Minute Thumbnail Method (Fast + Clickable)",
-      level: "Beginner",
-      duration: "1 hour",
-      outcome: "You will make fast thumbnails that still get clicks.",
-      includes: ["Template system", "3 styles", "Speed workflow"],
-      originalPrice: 1490,
-      discountPrice: 790,
-      badge: "Speed",
-      description:
-        "A rapid workflow to generate thumbnails in minutes using repeatable templates and rules.",
-    },
-    {
-      id: "pro-thumbnails-canva-gemini",
-      track: "AI Creator Tools",
-      title: "Pro Thumbnails with Canva + Gemini AI (Serious Design System)",
-      level: "Beginner → Intermediate",
-      duration: "2.5 hours",
-      outcome: "You will design professional thumbnails with structure & branding.",
-      includes: ["Canva design rules", "Gemini workflow", "Brand consistency"],
-      originalPrice: 3990,
-      discountPrice: 1990,
-      badge: "Design",
-      description:
-        "A professional thumbnail system with Canva + AI for concepts, layout, typography, and consistency.",
+        "From channel setup to your first upload pipeline. For gaming creators who keep overthinking.",
+      originalPrice: 999,
+      discountPrice: 499,
+      includes: [
+        "Channel setup checklist",
+        "10 video ideas for gaming",
+        "Upload + title formula",
+        "Pinned comment + end screen flow",
+      ],
+      delivery: "Instant access (Unlisted YouTube playlist) after checkout",
+      support: "Discord support community included",
+      // ✅ Put your Payhip/Gumroad checkout link here to make access automatic
+      checkoutUrl: "https://PAYHIP_OR_GUMROAD_LINK_HERE"
     },
 
-    // Track 5 — Editing
     {
-      id: "capcut-gaming-editing",
-      track: "Editing",
-      title: "CapCut Editing for Gaming (Fast Edits That Feel Pro)",
-      level: "Beginner",
-      duration: "3 hours",
-      outcome: "You will create clean gaming edits that hold attention.",
-      includes: ["Pacing", "Captions", "Sound + cut rules"],
-      originalPrice: 3990,
-      discountPrice: 1990,
-      badge: "Editing",
+      id: "yt-seo-gaming",
+      track: "YouTube Growth",
+      level: "Intermediate",
+      duration: "2 hours",
+      badge: "Most useful",
+      title: "YouTube SEO for Gaming (ChatGPT + VidIQ style)",
+      outcome: "Get searchable titles, tags, descriptions that pull views.",
       description:
-        "CapCut for gaming: pacing, cut rules, captions, sound effects, and making edits that feel professional.",
+        "Practical SEO: keywords, packaging, retention basics, and the AI workflow you’ll use daily.",
+      originalPrice: 1599,
+      discountPrice: 799,
+      includes: [
+        "Title formulas (Shorts + Long)",
+        "Tag strategy (gaming)",
+        "Description template",
+        "AI prompt pack (copy/paste)",
+      ],
+      delivery: "Instant access (Unlisted YouTube playlist) after checkout",
+      support: "Discord support community included",
+      checkoutUrl: "https://PAYHIP_OR_GUMROAD_LINK_HERE"
+    },
+
+    {
+      id: "ig-algorithm-gaming",
+      track: "Instagram Growth",
+      level: "Beginner",
+      duration: "1.2 hours",
+      badge: "Reels focused",
+      title: "Learn Instagram Algorithm (Gaming Reels)",
+      outcome: "Make reels that get pushed instead of dying at 200 views.",
+      description:
+        "Hooks, pacing, overlays, posting rhythm, and growth mechanics for gaming clips.",
+      originalPrice: 1199,
+      discountPrice: 599,
+      includes: [
+        "7 hook types that work",
+        "Reels structure (0–3s rule)",
+        "Caption formula",
+        "Posting schedule mini-plan",
+      ],
+      delivery: "Instant access (Unlisted YouTube playlist) after checkout",
+      support: "Discord support community included",
+      checkoutUrl: "https://PAYHIP_OR_GUMROAD_LINK_HERE"
+    },
+
+    {
+      id: "pro-live-stream",
+      track: "Streaming",
+      level: "Beginner",
+      duration: "1.5 hours",
+      badge: "Live setup",
+      title: "How to Start Professional Live Stream (Streamlabs)",
+      outcome: "Go live with clean overlays, alerts, audio, and stability.",
+      description:
+        "Setup that looks pro without expensive gear: scenes, alerts, mic filters, bitrate rules.",
+      originalPrice: 1699,
+      discountPrice: 849,
+      includes: [
+        "Scene setup blueprint",
+        "Audio clarity checklist",
+        "Basic alert setup",
+        "Stream settings for stability",
+      ],
+      delivery: "Instant access (Unlisted YouTube playlist) after checkout",
+      support: "Discord support community included",
+      checkoutUrl: "https://PAYHIP_OR_GUMROAD_LINK_HERE"
+    },
+
+    {
+      id: "capcut-gaming-edit",
+      track: "Editing",
+      level: "Beginner",
+      duration: "1.3 hours",
+      badge: "Fast edits",
+      title: "CapCut Editing for Gaming (Shorts/Reels)",
+      outcome: "Edit clips fast with a consistent style.",
+      description:
+        "Cuts, captions, zooms, sound design basics — gaming optimized.",
+      originalPrice: 999,
+      discountPrice: 499,
+      includes: [
+        "CapCut workflow for gaming",
+        "Subtitle style settings",
+        "Sound effects pack idea",
+        "Export settings",
+      ],
+      delivery: "Instant access (Unlisted YouTube playlist) after checkout",
+      support: "Discord support community included",
+      checkoutUrl: "https://PAYHIP_OR_GUMROAD_LINK_HERE"
+    },
+
+    {
+      id: "thumb-1min",
+      track: "Thumbnails",
+      level: "Beginner",
+      duration: "45 mins",
+      badge: "Quick win",
+      title: "Generate Thumbnail in 1 Minute (Fast Method)",
+      outcome: "Make thumbnails fast without getting stuck.",
+      description:
+        "Simple layout rules + template approach so you can upload daily.",
+      originalPrice: 799,
+      discountPrice: 399,
+      includes: [
+        "3 thumbnail templates",
+        "Fast text rules",
+        "Gaming thumbnail structure",
+        "Export sizes",
+      ],
+      delivery: "Instant access (Unlisted YouTube playlist) after checkout",
+      support: "Discord support community included",
+      checkoutUrl: "https://PAYHIP_OR_GUMROAD_LINK_HERE"
+    },
+
+    {
+      id: "thumb-pro-canva-ai",
+      track: "Thumbnails",
+      level: "Intermediate",
+      duration: "1.1 hours",
+      badge: "Pro look",
+      title: "Professional Thumbnail using Canva + AI (Gemini style)",
+      outcome: "High CTR thumbnails that look like real gaming creators.",
+      description:
+        "Design rules + AI workflow to speed up idea + execution.",
+      originalPrice: 1799,
+      discountPrice: 899,
+      includes: [
+        "Canva pro layout rules",
+        "AI prompt pack for thumbnail ideas",
+        "Color/contrast rules",
+        "Before/after examples",
+      ],
+      delivery: "Instant access (Unlisted YouTube playlist) after checkout",
+      support: "Discord support community included",
+      checkoutUrl: "https://PAYHIP_OR_GUMROAD_LINK_HERE"
     },
   ],
 
   shop: {
     affiliateNote:
-      "We may earn a small commission from affiliate links. It does not increase your price.",
+      "Affiliate shop: if you buy from these links, Detx Gaming may earn a commission (no extra cost to you).",
     categories: [
       {
-        title: "Streaming Gear",
+        title: "Creator Gear Picks",
         items: [
-          { name: "USB Mic", note: "Best starter mic for clean voice", link: "PASTE_AMAZON_AFFILIATE_LINK" },
-          { name: "Capture Card", note: "Console streaming setup", link: "PASTE_AMAZON_AFFILIATE_LINK" },
-          { name: "Ring Light", note: "Good lighting makes you look pro", link: "PASTE_AMAZON_AFFILIATE_LINK" },
-        ],
-      },
-      {
-        title: "Gaming Setup",
-        items: [
-          { name: "Headset", note: "Comfort + clear footsteps", link: "PASTE_AMAZON_AFFILIATE_LINK" },
-          { name: "Mechanical Keyboard", note: "Fast response + durability", link: "PASTE_AMAZON_AFFILIATE_LINK" },
-        ],
-      },
-      {
-        title: "Digital Products (Safe)",
-        items: [
-          { name: "Channel Audit (1:1)", note: "Full feedback on your channel + growth plan", link: "#" },
-          { name: "Thumbnail Template Pack", note: "Reusable Canva templates", link: "#" },
+          { name: "Gaming Headset", note: "Budget + clear mic", link: "https://amazon.com/PASTE" },
+          { name: "USB Microphone", note: "Best starter upgrade", link: "https://amazon.com/PASTE" },
         ],
       },
     ],
   },
 };
-
