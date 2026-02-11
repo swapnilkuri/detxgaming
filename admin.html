@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Admin — Detx Gaming</title>
+  <link rel="stylesheet" href="./assets/style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <div class="brand">
+        <div class="logoDot"></div>
+        <div data-brand>Detx Gaming</div>
+      </div>
+      <nav class="navLinks">
+        <a data-nav href="index.html">Home</a>
+        <a data-nav href="watch.html">Watch</a>
+        <a data-nav href="courses.html">Courses</a>
+        <a data-nav href="shop.html">Shop</a>
+        <a data-nav href="contact.html">Contact</a>
+        <a data-nav href="admin.html">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section">
+      <div class="sectionHead">
+        <div>
+          <h2>Admin Panel</h2>
+          <p class="muted">Login to view enrollments + messages.</p>
+        </div>
+        <div class="ctaRow">
+          <button class="btn ghost" id="logoutBtn" style="display:none;">Logout</button>
+        </div>
+      </div>
+
+      <!-- LOGIN -->
+      <div class="panel" id="loginPanel">
+        <h3 style="margin:0 0 12px;">Admin Login</h3>
+        <form id="loginForm">
+          <div class="row">
+            <div>
+              <label class="muted">Email</label>
+              <input id="adminEmail" type="email" class="input" required />
+            </div>
+            <div>
+              <label class="muted">Password</label>
+              <input id="adminPassword" type="password" class="input" required />
+            </div>
+          </div>
+          <div class="ctaRow" style="margin-top:14px;">
+            <button class="btn primary" type="submit">Login</button>
+          </div>
+          <div id="loginStatus" class="muted" style="margin-top:10px;"></div>
+        </form>
+      </div>
+
+      <!-- DASHBOARD -->
+      <div id="dashPanel" style="display:none;">
+        <section class="track">
+          <div class="trackHead">
+            <h2>Enrollments</h2>
+            <p class="muted">Latest submissions</p>
+          </div>
+          <div class="panel" id="enrollmentsBox">
+            <div class="muted">Loading...</div>
+          </div>
+        </section>
+
+        <section class="track">
+          <div class="trackHead">
+            <h2>Messages</h2>
+            <p class="muted">Contact form messages</p>
+          </div>
+          <div class="panel" id="messagesBox">
+            <div class="muted">Loading...</div>
+          </div>
+        </section>
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footerGrid">
+      <div>© <span id="year"></span> <span data-brand>Detx Gaming</span></div>
+      <div class="muted">Admin access requires login.</div>
+    </div>
+  </footer>
+
+  <script src="./assets/supabase.js"></script>
+  <script src="./assets/data.js"></script>
+  <script src="./assets/app.js"></script>
+  <script src="./assets/admin.js"></script>
+</body>
+</html>
