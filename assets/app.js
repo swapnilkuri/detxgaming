@@ -247,10 +247,9 @@ async function handleEnrollSubmit() {
       if (error) throw error;
 
       status.textContent = "✅ Submitted! Redirecting...";
-setTimeout(() => {
-  window.location.href = "success.html";
-}, 500);
-
+      setTimeout(() => {
+        window.location.href = "success.html";
+      }, 500);
 
     } catch (err) {
       console.error(err);
@@ -304,14 +303,103 @@ function youtubeEmbed(playlistId) {
   </div>`;
 }
 
-function renderWatchPage() {
-  const root = qs("[data-watch]");
+/* ================================
+   NEW: YouTube-style Watch Shelves
+   ================================ */
+
+async function fetchPlaylistRSS(playlistId) {
+  const url = `https://www.youtube.com/feeds/videos.xml?playlist_id=${encodeURIComponent(playlistId)}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("RSS fetch failed");
+  const text = await res.text();
+  const xml = new DOMParser().parseFromString(text, "text/xml");
+
+  const entries = Array.from(xml.getElementsByTagName("entry"));
+  return entries.map((e) => {
+    const title = e.getElementsByTagName("title")[0]?.textContent?.trim() || "Video";
+    const vid = e.getElementsByTagNameNS("http://www.youtube.com/xml/schemas/2015", "videoId")[0]?.textContent?.trim();
+    return { title, videoId: vid };
+  }).filter(x => x.videoId);
+}
+
+function renderShelf({ title, playlistId }) {
+  const shelf = document.createElement("section");
+  shelf.className = "shelf";
+
+  const playAllLink = `https://www.youtube.com/playlist?list=${encodeURIComponent(playlistId)}`;
+
+  shelf.innerHTML = `
+    <div class="shelfHead">
+      <h3 class="shelfTitle">${title}</h3>
+      <a class="playAll" href="${playAllLink}" target="_blank" rel="noopener">▶ Play all</a>
+    </div>
+    <div class="rowScroll" data-row></div>
+    <div class="muted" data-fallback style="display:none;margin-top:10px;"></div>
+  `;
+  return shelf;
+}
+
+function videoCardHTML({ title, videoId }) {
+  const watch = `https://www.youtube.com/watch?v=${encodeURIComponent(videoId)}`;
+  const thumb = `https://i.ytimg.com/vi/${encodeURIComponent(videoId)}/hqdefault.jpg`;
+
+  return `
+    <a class="videoCard" href="${watch}" target="_blank" rel="noopener">
+      <div class="thumb">
+        <img src="${thumb}" alt="">
+        <div class="thumbBadge">Watch</div>
+      </div>
+      <div class="vBody">
+        <div class="vTitle">${title}</div>
+        <div class="vMeta">
+          <span>Detx Gaming</span>
+          <span>•</span>
+          <span>YouTube</span>
+        </div>
+      </div>
+    </a>
+  `;
+}
+
+async function renderWatchShelves() {
+  const root = qs("[data-watch-shelves]");
   if (!root) return;
 
-  qs("#ytFeatured").innerHTML = youtubeEmbed(DETX.youtube.featuredPlaylistId);
-  qs("#ytHighlights").innerHTML = youtubeEmbed(DETX.youtube.highlightsPlaylistId);
-  qs("#ytShorts").innerHTML = youtubeEmbed(DETX.youtube.shortsPlaylistId);
-  qs("#ytLive").innerHTML = youtubeEmbed(DETX.youtube.livePlaylistId);
+  const shelves = [
+    { title: "Rainbow Six Siege Highlights", playlistId: DETX.youtube.highlightsPlaylistId },
+    { title: "Rainbow Six Siege Clips", playlistId: DETX.youtube.shortsPlaylistId },
+    { title: "Live Streams", playlistId: DETX.youtube.livePlaylistId },
+    { title: "Featured", playlistId: DETX.youtube.featuredPlaylistId },
+  ];
+
+  root.innerHTML = "";
+
+  for (const s of shelves) {
+    const section = renderShelf({ title: s.title, playlistId: s.playlistId });
+    root.appendChild(section);
+
+    const row = section.querySelector("[data-row]");
+    const fallback = section.querySelector("[data-fallback]");
+
+    if (!s.playlistId || String(s.playlistId).includes("PASTE")) {
+      fallback.style.display = "block";
+      fallback.innerHTML = `Add playlist ID in <b>assets/data.js</b> for <b>${s.title}</b>.`;
+      continue;
+    }
+
+    try {
+      const items = await fetchPlaylistRSS(s.playlistId);
+      const top = items.slice(0, 12);
+      row.innerHTML = top.map(videoCardHTML).join("");
+    } catch (err) {
+      // If RSS fails (CORS), fallback to playlist embed so page never breaks
+      fallback.style.display = "block";
+      fallback.innerHTML = `
+        RSS blocked by browser. Showing playlist embed instead:
+        <div style="margin-top:10px;">${youtubeEmbed(s.playlistId)}</div>
+      `;
+    }
+  }
 }
 
 function renderShopPage() {
@@ -352,7 +440,7 @@ function boot() {
   renderFeaturedCourses();
   renderCoursesPage();
   renderCourseDetails();
-  renderWatchPage();
+  renderWatchShelves();   // ✅ NEW WATCH UI
   renderShopPage();
 
   wireModal();
@@ -365,4 +453,3 @@ function boot() {
 }
 
 document.addEventListener("DOMContentLoaded", boot);
-
