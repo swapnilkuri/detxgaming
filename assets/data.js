@@ -10,11 +10,11 @@ const DETX = {
 socials: [
   { label: "YouTube", href: "https://www.youtube.com/@detxgamingyt" },
 
-  // DM link (works now)
-  { label: "Discord DM", href: "http://discordapp.com/users/794883241680044054" },
+  // Community join link (best for conversion)
+  { label: "Join Discord", href: "https://discord.gg/Mm74e4WHhU" },
 
-  // Join link (replace later with your real invite)
-  { label: "Join Discord", href: "https://discord.gg/PASTE_INVITE_HERE" },
+  // Direct DM link (good for 1:1)
+  { label: "Discord DM", href: "http://discordapp.com/users/794883241680044054" },
 
   { label: "Facebook", href: "https://facebook.com/YOURPAGE" },
   { label: "Instagram", href: "https://instagram.com/YOURHANDLE" },
@@ -22,6 +22,7 @@ socials: [
   { label: "Threads", href: "https://threads.net/@YOURHANDLE" },
   { label: "Reddit", href: "https://reddit.com/user/YOURUSERNAME" },
 ],
+
 
 
   // Replace with your YouTube playlist IDs (recommended)
