@@ -246,8 +246,11 @@ async function handleEnrollSubmit() {
       const { error } = await sb.from("enrollments").insert(payload);
       if (error) throw error;
 
-      status.textContent = "✅ Submitted! We’ll contact you soon.";
-      setTimeout(() => closeEnrollModal(), 900);
+      status.textContent = "✅ Submitted! Redirecting...";
+setTimeout(() => {
+  window.location.href = "success.html";
+}, 500);
+
 
     } catch (err) {
       console.error(err);
