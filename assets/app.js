@@ -1,14 +1,10 @@
 // assets/app.js
 
-function moneyBDT(n) {
-  return "৳" + Number(n).toLocaleString("en-US");
-}
+function qs(sel, root = document) { return root.querySelector(sel); }
+function qsa(sel, root = document) { return Array.from(root.querySelectorAll(sel)); }
 
-function qs(sel, root = document) {
-  return root.querySelector(sel);
-}
-function qsa(sel, root = document) {
-  return Array.from(root.querySelectorAll(sel));
+function money(n) {
+  return "₹" + Number(n).toLocaleString("en-US");
 }
 
 function setYear() {
@@ -20,52 +16,83 @@ function renderSocials() {
   const wrap = qs("[data-socials]");
   if (!wrap) return;
   wrap.innerHTML = DETX.socials
-    .map(
-      (s) =>
-        `<a class="chip" href="${s.href}" target="_blank" rel="noopener">${s.label}</a>`
-    )
+    .map(s => `<a class="chip" href="${s.href}" target="_blank" rel="noopener">${s.label}</a>`)
     .join("");
 }
 
 function navActive() {
   const path = location.pathname.split("/").pop() || "index.html";
-  qsa("[data-nav]").forEach((a) => {
+  qsa("[data-nav]").forEach(a => {
     if (a.getAttribute("href") === path) a.classList.add("active");
   });
 }
 
-function getCourseById(id) {
-  return DETX.courses.find((c) => c.id === id);
+function campaignRemaining() {
+  const ends = new Date(DETX.campaign.endsAt).getTime();
+  const now = Date.now();
+  const diff = Math.max(0, ends - now);
+
+  const d = Math.floor(diff / (24 * 3600 * 1000));
+  const h = Math.floor((diff % (24 * 3600 * 1000)) / (3600 * 1000));
+  const m = Math.floor((diff % (3600 * 1000)) / (60 * 1000));
+  const s = Math.floor((diff % (60 * 1000)) / 1000);
+
+  return { diff, d, h, m, s };
 }
 
-function groupByTrack(courses) {
-  const map = new Map();
-  for (const c of courses) {
-    if (!map.has(c.track)) map.set(c.track, []);
-    map.get(c.track).push(c);
-  }
-  return map;
+function renderUrgency() {
+  const host = qs("[data-urgency]");
+  if (!host) return;
+
+  host.innerHTML = `
+    <div class="urgencyBar">
+      <div class="urgencyLeft">
+        <span class="saleBadge">${DETX.campaign.label}</span>
+        <span class="muted">${DETX.campaign.note}</span>
+      </div>
+      <div class="timerPill" id="saleTimer">Loading...</div>
+    </div>
+  `;
+
+  const el = qs("#saleTimer");
+  const tick = () => {
+    const r = campaignRemaining();
+    if (r.diff <= 0) {
+      el.textContent = "Sale ended";
+      return;
+    }
+    el.textContent = `${String(r.d).padStart(2,"0")}d : ${String(r.h).padStart(2,"0")}h : ${String(r.m).padStart(2,"0")}m : ${String(r.s).padStart(2,"0")}s`;
+    requestAnimationFrame(() => {});
+  };
+  setInterval(tick, 1000);
+  tick();
+}
+
+function getCourseById(id) {
+  return DETX.courses.find(c => c.id === id);
 }
 
 function courseCard(c) {
   return `
   <article class="card courseCard">
-    <div class="cardTop">
+    <div>
       <div class="badgeRow">
         <span class="badge">${c.track}</span>
-        <span class="mini">${c.level} • ${c.duration}</span>
+        <span class="muted" style="font-size:12px;">${c.level} • ${c.duration}</span>
       </div>
-      ${c.badge ? `<div class="tag">${c.badge}</div>` : ""}
+
+      ${c.badge ? `<div class="tag">50% OFF</div>` : `<div class="tag">50% OFF</div>`}
+
       <h3 class="cardTitle">${c.title}</h3>
-      <p class="muted">${c.outcome}</p>
+      <p class="muted" style="margin:0;">${c.outcome}</p>
     </div>
 
     <div class="priceRow">
       <div class="price">
-        <span class="old">${moneyBDT(c.originalPrice)}</span>
-        <span class="new">${moneyBDT(c.discountPrice)}</span>
+        <span class="old">${money(c.originalPrice)}</span>
+        <span class="new">${money(c.discountPrice)}</span>
       </div>
-      <a class="btn" href="course.html?id=${encodeURIComponent(c.id)}">View Course</a>
+      <a class="btn" href="course.html?id=${encodeURIComponent(c.id)}">View</a>
     </div>
   </article>`;
 }
@@ -73,49 +100,13 @@ function courseCard(c) {
 function renderFeaturedCourses() {
   const wrap = qs("[data-featured-courses]");
   if (!wrap) return;
-  const featured = DETX.courses.slice(0, 6);
-  wrap.innerHTML = featured.map(courseCard).join("");
+  wrap.innerHTML = DETX.courses.slice(0, 6).map(courseCard).join("");
 }
 
 function renderCoursesPage() {
   const wrap = qs("[data-courses]");
   if (!wrap) return;
-
-  const map = groupByTrack(DETX.courses);
-  let html = "";
-  for (const [track, items] of map.entries()) {
-    html += `<section class="track">
-      <div class="trackHead">
-        <h2>${track}</h2>
-        <p class="muted">${items.length} courses</p>
-      </div>
-      <div class="grid">${items.map(courseCard).join("")}</div>
-    </section>`;
-  }
-  wrap.innerHTML = html;
-
-  // Search
-  const input = qs("#courseSearch");
-  if (input) {
-    input.addEventListener("input", () => {
-      const q = input.value.trim().toLowerCase();
-      const filtered = DETX.courses.filter((c) =>
-        (c.title + " " + c.track + " " + c.description).toLowerCase().includes(q)
-      );
-      const map2 = groupByTrack(filtered);
-      let html2 = "";
-      for (const [track, items] of map2.entries()) {
-        html2 += `<section class="track">
-          <div class="trackHead">
-            <h2>${track}</h2>
-            <p class="muted">${items.length} courses</p>
-          </div>
-          <div class="grid">${items.map(courseCard).join("")}</div>
-        </section>`;
-      }
-      wrap.innerHTML = html2 || `<div class="empty">No courses found.</div>`;
-    });
-  }
+  wrap.innerHTML = `<div class="grid">${DETX.courses.map(courseCard).join("")}</div>`;
 }
 
 function renderCourseDetails() {
@@ -137,22 +128,42 @@ function renderCourseDetails() {
   qs("[data-course-duration]").textContent = c.duration;
   qs("[data-course-desc]").textContent = c.description;
   qs("[data-course-outcome]").textContent = c.outcome;
-  qs("[data-course-old]").textContent = moneyBDT(c.originalPrice);
-  qs("[data-course-new]").textContent = moneyBDT(c.discountPrice);
+  qs("[data-course-old]").textContent = money(c.originalPrice);
+  qs("[data-course-new]").textContent = money(c.discountPrice);
 
   const inc = qs("[data-course-includes]");
-  inc.innerHTML = c.includes.map((x) => `<li>${x}</li>`).join("");
+  inc.innerHTML = c.includes.map(x => `<li>${x}</li>`).join("");
+
+  const del = qs("[data-course-delivery]");
+  if (del) del.textContent = c.delivery;
+
+  const sup = qs("[data-course-support]");
+  if (sup) sup.textContent = c.support;
+
+  const instantBtn = qs("#instantBuyBtn");
+  if (instantBtn) {
+    if (c.checkoutUrl && !c.checkoutUrl.includes("PAYHIP")) {
+      instantBtn.href = c.checkoutUrl;
+      instantBtn.style.display = "inline-flex";
+    } else {
+      // still show, but user must set link
+      instantBtn.href = "#";
+      instantBtn.style.display = "inline-flex";
+      instantBtn.textContent = "Instant Buy (Add Checkout Link)";
+    }
+  }
 
   const enrollBtn = qs("#enrollBtn");
-  enrollBtn.addEventListener("click", () => openEnrollModal(c));
+  if (enrollBtn) enrollBtn.addEventListener("click", () => openEnrollModal(c));
 }
 
 function openEnrollModal(course) {
   const modal = qs("#enrollModal");
   modal.classList.add("open");
+
   qs("#modalCourseTitle").textContent = course.title;
-  qs("#modalPriceOld").textContent = moneyBDT(course.originalPrice);
-  qs("#modalPriceNew").textContent = moneyBDT(course.discountPrice);
+  qs("#modalPriceOld").textContent = money(course.originalPrice);
+  qs("#modalPriceNew").textContent = money(course.discountPrice);
 
   const form = qs("#enrollForm");
   form.dataset.courseId = course.id;
@@ -160,7 +171,6 @@ function openEnrollModal(course) {
   form.dataset.priceOriginal = String(course.originalPrice);
   form.dataset.priceDiscount = String(course.discountPrice);
 
-  // reset
   form.reset();
   qs("#enrollStatus").textContent = "";
 }
@@ -174,16 +184,11 @@ function wireModal() {
   const modal = qs("#enrollModal");
   if (!modal) return;
 
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) closeEnrollModal();
-  });
-
+  modal.addEventListener("click", (e) => { if (e.target === modal) closeEnrollModal(); });
   const closeBtn = qs("[data-modal-close]");
   if (closeBtn) closeBtn.addEventListener("click", closeEnrollModal);
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeEnrollModal();
-  });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeEnrollModal(); });
 }
 
 async function handleEnrollSubmit() {
@@ -197,26 +202,27 @@ async function handleEnrollSubmit() {
 
     try {
       const sb = getSupabase();
-
-      const course_id = form.dataset.courseId;
-      const course_title = form.dataset.courseTitle;
-      const price_original = parseInt(form.dataset.priceOriginal, 10);
-      const price_discount = parseInt(form.dataset.priceDiscount, 10);
-
-      const full_name = qs("#fullName").value.trim();
-      const country = qs("#country").value.trim();
-      const email = qs("#email").value.trim();
-      const phone = qs("#phone").value.trim();
-      const payment_method = qs("#paymentMethod").value;
-      const transaction_id = qs("#transactionId").value.trim() || null;
+      const payload = {
+        course_id: form.dataset.courseId,
+        course_title: form.dataset.courseTitle,
+        full_name: qs("#fullName").value.trim(),
+        country: qs("#country").value.trim(),
+        email: qs("#email").value.trim(),
+        phone: qs("#phone").value.trim(),
+        payment_method: qs("#paymentMethod").value,
+        transaction_id: (qs("#transactionId").value.trim() || null),
+        screenshot_url: null,
+        price_original: parseInt(form.dataset.priceOriginal, 10),
+        price_discount: parseInt(form.dataset.priceDiscount, 10),
+        status: "pending"
+      };
 
       // optional upload
-      let screenshot_url = null;
       const file = qs("#paymentScreenshot").files[0];
       if (file) {
         const ext = file.name.split(".").pop().toLowerCase();
         const safeName = `${Date.now()}_${Math.random().toString(16).slice(2)}.${ext}`;
-        const path = `${course_id}/${safeName}`;
+        const path = `${payload.course_id}/${safeName}`;
 
         const { error: upErr } = await sb.storage
           .from("payment_screenshots")
@@ -225,87 +231,36 @@ async function handleEnrollSubmit() {
         if (upErr) throw upErr;
 
         const { data: pub } = sb.storage.from("payment_screenshots").getPublicUrl(path);
-        screenshot_url = pub.publicUrl;
+        payload.screenshot_url = pub.publicUrl;
       }
-
-      const payload = {
-        course_id,
-        course_title,
-        full_name,
-        country,
-        email,
-        phone,
-        payment_method,
-        transaction_id,
-        screenshot_url,
-        price_original,
-        price_discount,
-        status: "pending",
-      };
 
       const { error } = await sb.from("enrollments").insert(payload);
       if (error) throw error;
 
       status.textContent = "✅ Submitted! Redirecting...";
-      setTimeout(() => {
-        window.location.href = "success.html";
-      }, 500);
-
+      setTimeout(() => { window.location.href = "success.html"; }, 500);
     } catch (err) {
       console.error(err);
-      qs("#enrollStatus").textContent =
-        "❌ Failed. Please try again or contact us directly.";
-    }
-  });
-}
-
-async function handleContactSubmit() {
-  const form = qs("#contactForm");
-  if (!form) return;
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const status = qs("#contactStatus");
-    status.textContent = "Sending...";
-
-    try {
-      const sb = getSupabase();
-      const payload = {
-        full_name: qs("#cName").value.trim(),
-        email: qs("#cEmail").value.trim(),
-        subject: qs("#cSubject").value.trim(),
-        message: qs("#cMessage").value.trim(),
-      };
-      const { error } = await sb.from("messages").insert(payload);
-      if (error) throw error;
-
-      status.textContent = "✅ Sent! We’ll reply soon.";
-      form.reset();
-    } catch (err) {
-      console.error(err);
-      qs("#contactStatus").textContent = "❌ Failed. Please try again.";
+      status.textContent = "❌ Failed. Check Supabase keys/RLS or try again.";
     }
   });
 }
 
 function youtubeEmbed(playlistId) {
   if (!playlistId || playlistId.includes("PASTE")) {
-    return `<div class="empty">Add your playlist ID in <b>assets/data.js</b> to show videos here.</div>`;
+    return `<div class="empty">Add your playlist ID in <b>assets/data.js</b>.</div>`;
   }
   return `
-  <div class="videoWrap">
-    <iframe
-      src="https://www.youtube.com/embed/videoseries?list=${playlistId}"
-      title="YouTube playlist"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen></iframe>
-  </div>`;
+    <div class="card">
+      <iframe
+        style="width:100%;height:420px;border:0;border-radius:14px;"
+        src="https://www.youtube.com/embed/videoseries?list=${playlistId}"
+        title="YouTube playlist"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    </div>
+  `;
 }
-
-/* ================================
-   NEW: YouTube-style Watch Shelves
-   ================================ */
 
 async function fetchPlaylistRSS(playlistId) {
   const url = `https://www.youtube.com/feeds/videos.xml?playlist_id=${encodeURIComponent(playlistId)}`;
@@ -313,8 +268,8 @@ async function fetchPlaylistRSS(playlistId) {
   if (!res.ok) throw new Error("RSS fetch failed");
   const text = await res.text();
   const xml = new DOMParser().parseFromString(text, "text/xml");
-
   const entries = Array.from(xml.getElementsByTagName("entry"));
+
   return entries.map((e) => {
     const title = e.getElementsByTagName("title")[0]?.textContent?.trim() || "Video";
     const vid = e.getElementsByTagNameNS("http://www.youtube.com/xml/schemas/2015", "videoId")[0]?.textContent?.trim();
@@ -325,7 +280,6 @@ async function fetchPlaylistRSS(playlistId) {
 function renderShelf({ title, playlistId }) {
   const shelf = document.createElement("section");
   shelf.className = "shelf";
-
   const playAllLink = `https://www.youtube.com/playlist?list=${encodeURIComponent(playlistId)}`;
 
   shelf.innerHTML = `
@@ -351,11 +305,7 @@ function videoCardHTML({ title, videoId }) {
       </div>
       <div class="vBody">
         <div class="vTitle">${title}</div>
-        <div class="vMeta">
-          <span>Detx Gaming</span>
-          <span>•</span>
-          <span>YouTube</span>
-        </div>
+        <div class="vMeta"><span>Detx Gaming</span><span>•</span><span>YouTube</span></div>
       </div>
     </a>
   `;
@@ -366,8 +316,8 @@ async function renderWatchShelves() {
   if (!root) return;
 
   const shelves = [
-    { title: "Rainbow Six Siege Highlights", playlistId: DETX.youtube.highlightsPlaylistId },
-    { title: "Rainbow Six Siege Clips", playlistId: DETX.youtube.shortsPlaylistId },
+    { title: "Highlights", playlistId: DETX.youtube.highlightsPlaylistId },
+    { title: "Shorts", playlistId: DETX.youtube.shortsPlaylistId },
     { title: "Live Streams", playlistId: DETX.youtube.livePlaylistId },
     { title: "Featured", playlistId: DETX.youtube.featuredPlaylistId },
   ];
@@ -375,7 +325,7 @@ async function renderWatchShelves() {
   root.innerHTML = "";
 
   for (const s of shelves) {
-    const section = renderShelf({ title: s.title, playlistId: s.playlistId });
+    const section = renderShelf(s);
     root.appendChild(section);
 
     const row = section.querySelector("[data-row]");
@@ -389,67 +339,32 @@ async function renderWatchShelves() {
 
     try {
       const items = await fetchPlaylistRSS(s.playlistId);
-      const top = items.slice(0, 12);
-      row.innerHTML = top.map(videoCardHTML).join("");
+      row.innerHTML = items.slice(0, 12).map(videoCardHTML).join("");
     } catch (err) {
-      // If RSS fails (CORS), fallback to playlist embed so page never breaks
       fallback.style.display = "block";
-      fallback.innerHTML = `
-        RSS blocked by browser. Showing playlist embed instead:
-        <div style="margin-top:10px;">${youtubeEmbed(s.playlistId)}</div>
-      `;
+      fallback.innerHTML = `Showing playlist embed instead:<div style="margin-top:10px;">${youtubeEmbed(s.playlistId)}</div>`;
     }
   }
 }
 
-function renderShopPage() {
-  const root = qs("[data-shop]");
-  if (!root) return;
-
-  qs("#affiliateNote").textContent = DETX.shop.affiliateNote;
-
-  const html = DETX.shop.categories.map((cat) => {
-    const items = cat.items.map((it) => `
-      <div class="shopItem">
-        <div>
-          <div class="shopName">${it.name}</div>
-          <div class="muted">${it.note}</div>
-        </div>
-        <a class="btn ghost" href="${it.link}" target="_blank" rel="noopener">Open</a>
-      </div>
-    `).join("");
-
-    return `
-      <section class="track">
-        <div class="trackHead">
-          <h2>${cat.title}</h2>
-          <p class="muted">Curated picks</p>
-        </div>
-        <div class="shopGrid">${items}</div>
-      </section>
-    `;
-  }).join("");
-
-  root.innerHTML = html;
+function injectBrand() {
+  qsa("[data-brand]").forEach(el => el.textContent = DETX.brand.name);
 }
 
 function boot() {
   setYear();
+  injectBrand();
   renderSocials();
   navActive();
+  renderUrgency();
+
   renderFeaturedCourses();
   renderCoursesPage();
   renderCourseDetails();
-  renderWatchShelves();   // ✅ NEW WATCH UI
-  renderShopPage();
+  renderWatchShelves();
 
   wireModal();
   handleEnrollSubmit();
-  handleContactSubmit();
-
-  // Inject brand name
-  qsa("[data-brand]").forEach((el) => (el.textContent = DETX.brand.name));
-  qsa("[data-tagline]").forEach((el) => (el.textContent = DETX.brand.tagline));
 }
 
 document.addEventListener("DOMContentLoaded", boot);
