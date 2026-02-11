@@ -7,15 +7,22 @@ const DETX = {
     email: "detxbusiness@email.com",
     phone: "+8801771253085",
   },
-  socials: [
-    { label: "YouTube", href: "https://youtube.com/@detxgamingyt" },
-    { label: "Facebook", href: "https://facebook.com/detxgamingyt" },
-    { label: "Instagram", href: "https://instagram.com/detxgaming" },
-    { label: "TikTok", href: "https://tiktok.com/@detxgamingyt" },
-    { label: "Threads", href: "https://threads.net/@detxgaming" },
-    { label: "Reddit", href: "https://reddit.com/user/detxgaming/" },
-    { label: "Discord", href: "https://discord.gg/6PnkfTjfJu" },
-  ],
+socials: [
+  { label: "YouTube", href: "https://www.youtube.com/@detxgamingyt" },
+
+  // DM link (works now)
+  { label: "Discord DM", href: "http://discordapp.com/users/794883241680044054" },
+
+  // Join link (replace later with your real invite)
+  { label: "Join Discord", href: "https://discord.gg/PASTE_INVITE_HERE" },
+
+  { label: "Facebook", href: "https://facebook.com/YOURPAGE" },
+  { label: "Instagram", href: "https://instagram.com/YOURHANDLE" },
+  { label: "TikTok", href: "https://tiktok.com/@YOURHANDLE" },
+  { label: "Threads", href: "https://threads.net/@YOURHANDLE" },
+  { label: "Reddit", href: "https://reddit.com/user/YOURUSERNAME" },
+],
+
 
   // Replace with your YouTube playlist IDs (recommended)
   youtube: {
